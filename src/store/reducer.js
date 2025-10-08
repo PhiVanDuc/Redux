@@ -1,17 +1,11 @@
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// Cấu hình theo redux core
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
+import { combineReducers } from "redux";
 
-// import { combineReducers } from "redux";
+import filtersReducerSlice from "./reducer-slices/filters";
+import todoListReducerSlice from "./reducer-slices/todo-list";
 
-// import filtersReducerSlice from "./reducer-slices/filters";
-// import todoListReducerSlice from "./reducer-slices/todo-list";
+const rootReducer = combineReducers({
+    filters: filtersReducerSlice,
+    todoList: todoListReducerSlice
+});
 
-// const rootReducer = combineReducers({
-//     filters: filtersReducerSlice,
-//     todoList: todoListReducerSlice
-// });
-
-// export default rootReducer;
+export default rootReducer;

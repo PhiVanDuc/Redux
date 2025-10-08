@@ -5,7 +5,6 @@ import Todo from '../Todo';
 import { Col, Row, Input, Button, Select, Tag } from 'antd';
 
 import { nanoid } from 'nanoid';
-import todoListReducerSlice from "../../store/reducer-slices/todo-list";
 
 export default function TodoList() {
     const dispatch = useDispatch();
@@ -30,43 +29,17 @@ export default function TodoList() {
     const [todoPriority, setTodoPriority] = useState("Medium");
 
     const handleClickAddTodo = () => {
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux core
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
-        // const action = {
-        //     type: "todoList/addTodo",
-        //     payload: {
-        //         id: nanoid(),
-        //         name: todoName,
-        //         completed: false,
-        //         prioriry: todoPriority
-        //     }
-        // }
-
-        // dispatch(action);
-        // setTodoName("");
-
-
-
-
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux toolkit
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
-        dispatch(
-            todoListReducerSlice.actions.addTodo({
+        const action = {
+            type: "todoList/addTodo",
+            payload: {
                 id: nanoid(),
                 name: todoName,
                 completed: false,
-                priority: todoPriority
-            })
-        );
+                prioriry: todoPriority
+            }
+        }
 
+        dispatch(action);
         setTodoName("");
     }
 

@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { Col, Row, Input, Typography, Radio } from 'antd';
 
-import filtersReducerSlice from "../../store/reducer-slices/filters";
-
 const { Search } = Input;
 
 export default function Filters() {
@@ -16,61 +14,23 @@ export default function Filters() {
     const handleChangeSearchText = (e) => {
         setSearchText(e.target.value);
 
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux core
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
+        const action = {
+            type: "todoList/searchText",
+            payload: e.target.value
+        };
 
-        // const action = {
-        //     type: "todoList/searchText",
-        //     payload: e.target.value
-        // };
-
-        // dispatch(action);
-
-
-
-
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux toolkit
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
-        dispatch(
-            filtersReducerSlice.actions.searchText(e.target.value)
-        );
+        dispatch(action);
     }
 
     const handleChangeSearchStatus = (e) => {
         setSearchStatus(e.target.value);
 
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux core
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
+        const action = {
+            type: "todoList/searchStatus",
+            payload: e.target.value
+        };
 
-        // const action = {
-        //     type: "todoList/searchStatus",
-        //     payload: e.target.value
-        // };
-
-        // dispatch(action);
-
-
-
-
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux toolkit
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
-        dispatch(
-            filtersReducerSlice.actions.searchStatus(e.target.value)
-        );
+        dispatch(action);
     }
 
     return (

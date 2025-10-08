@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { Row, Tag, Checkbox } from 'antd';
 
-import todoListReducerSlice from "../../store/reducer-slices/todo-list";
-
 const priorityColorMapping = {
     High: 'red',
     Medium: 'blue',
@@ -18,34 +16,12 @@ export default function Todo({ todo: { id, name, completed, priority } }) {
     const toggleCheckbox = () => {
         setChecked(!checked);
 
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux core
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
+        const action = {
+            type: "todoList/updateTodo",
+            payload: { id, completed: !checked }
+        }
 
-        // const action = {
-        //     type: "todoList/updateTodo",
-        //     payload: { id, completed: !checked }
-        // }
-
-        // dispatch(action);
-
-
-
-
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux toolkit
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
-        dispatch(
-            todoListReducerSlice.actions.updateTodo({
-                id,
-                completed: !checked
-            })
-        );
+        dispatch(action);
     };
 
     return (
