@@ -8,17 +8,6 @@ const todoListReducerSlice = createSlice(
             status: "idle",
             todos: []
         },
-        reducers: {
-            addTodo: (state, action) => {
-                state.todos.push(action.payload);
-            },
-            updateTodo: (state, action) => {
-                const { id, completed } = action.payload;
-
-                const todo = state.todos.find(todo => todo.id === id);
-                if (todo) todo.completed = completed;
-            }
-        },
         extraReducers: (builder) => {
             builder
                 .addCase(

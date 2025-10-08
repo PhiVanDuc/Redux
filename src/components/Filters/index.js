@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Col, Row, Input, Typography, Radio } from 'antd';
-
 import filtersReducerSlice from "../../store/reducer-slices/filters";
 
 const { Search } = Input;

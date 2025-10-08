@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Row, Tag, Checkbox } from 'antd';
-
 import { fetchUpdateTodo } from '../../store/thunks/todo-list';
 
 const priorityColorMapping = {
