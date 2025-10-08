@@ -1,17 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Todo from '../Todo';
 import { Col, Row, Input, Button, Select, Tag } from 'antd';
 
 import { nanoid } from 'nanoid';
-import todoListReducerSlice from "../../store/reducer-slices/todo-list";
+import { fetchTodos, fetchAddTodo } from '../../store/thunks/todo-list';
 
 export default function TodoList() {
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(
+            fetchTodos()
+        );
+    }, [dispatch]);
+
     const todoList = useSelector(state => {
-        const todosRemaining = state.todoList.filter(todo => {
+        const todosRemaining = state.todoList.todos.filter(todo => {
             const searchText = state.filters.search;
             const searchStatus = state.filters.status;
 
@@ -30,36 +36,8 @@ export default function TodoList() {
     const [todoPriority, setTodoPriority] = useState("Medium");
 
     const handleClickAddTodo = () => {
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux core
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
-        // const action = {
-        //     type: "todoList/addTodo",
-        //     payload: {
-        //         id: nanoid(),
-        //         name: todoName,
-        //         completed: false,
-        //         prioriry: todoPriority
-        //     }
-        // }
-
-        // dispatch(action);
-        // setTodoName("");
-
-
-
-
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-        // Dispatch theo redux toolkit
-        // -------------------------------------------------------------------------------------
-        // -------------------------------------------------------------------------------------
-
         dispatch(
-            todoListReducerSlice.actions.addTodo({
+            fetchAddTodo({
                 id: nanoid(),
                 name: todoName,
                 completed: false,

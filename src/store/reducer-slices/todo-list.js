@@ -1,65 +1,55 @@
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// Cấu hình theo redux core
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-
-// const initState = [
-//     { id: 1, name: "Learn Yoga", completed: false, priority: "Medium" },
-//     { id: 2, name: "Learn Redux", completed: true, priority: "High" },
-//     { id: 3, name: "Learn Javascript", completed: false, priority: "Low" }
-// ];
-
-// const todoListReducerSlice = (state = initState, action) => {
-//     switch (action.type) {
-//         case "todoList/addTodo": {
-//             return [
-//                 ...state,
-//                 action.payload
-//             ]
-//         }
-//         case "todoList/updateTodo": {
-//             const { id, completed } = action.payload;
-
-//             return state.map((todo) =>
-//                 todo.id === id ? { ...todo, completed } : todo
-//             );
-//         }
-//         default: return state
-//     }
-// }
-
-// export default todoListReducerSlice;
-
-
-
-
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// Cấu hình theo redux toolkit
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchTodos, fetchAddTodo, fetchUpdateTodo } from "../thunks/todo-list";
 
 const todoListReducerSlice = createSlice(
     {
         name: "todoList",
-        initialState: [
-            { id: 1, name: "Learn Yoga", completed: false, priority: "Medium" },
-            { id: 2, name: "Learn Redux", completed: true, priority: "High" },
-            { id: 3, name: "Learn Javascript", completed: false, priority: "Low" }
-        ],
+        initialState: {
+            status: "idle",
+            todos: []
+        },
         reducers: {
             addTodo: (state, action) => {
-                state.push(action.payload);
+                state.todos.push(action.payload);
             },
             updateTodo: (state, action) => {
                 const { id, completed } = action.payload;
 
-                const todo = state.find(todo => todo.id === id);
+                const todo = state.todos.find(todo => todo.id === id);
                 if (todo) todo.completed = completed;
             }
+        },
+        extraReducers: (builder) => {
+            builder
+                .addCase(
+                    fetchTodos.fulfilled,
+                    (state, action) => { state.todos = action.payload }
+                )
+                .addCase(
+                    fetchAddTodo.fulfilled,
+                    (state, action) => { state.todos.push(action.payload); }
+                )
+                .addCase(
+                    fetchUpdateTodo.fulfilled,
+                    (state, action) => {
+                        const { id, completed } = action.payload;
+
+                        const todo = state.todos.find(todo => todo.id === id);
+                        if (todo) todo.completed = completed;
+                    }
+                )
+                .addMatcher(
+                    (action) => action.type.endsWith("/pending"),
+                    (state) => {
+                        state.status = "loading";
+                    }
+                )
+                .addMatcher(
+                    (action) => action.type.endsWith("/fulfilled"),
+                    (state) => {
+                        state.status = "idle";
+                    }
+                )
         }
     }
 );

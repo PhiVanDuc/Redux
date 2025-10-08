@@ -1,8 +1,11 @@
-import { Typography, Divider } from 'antd';
 import './App.css';
-import TodoList from './components/TodoList';
-import Filters from './components/Filters';
 
+import { Typography, Divider } from 'antd';
+import Filters from './components/Filters';
+import TodoList from './components/TodoList';
+import setupServer from "./fakeApis/index";
+
+if (process.env.NODE_ENV === "development") setupServer();
 const { Title } = Typography;
 
 function App() {
