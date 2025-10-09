@@ -28,19 +28,19 @@
 - Action creator (async) sẽ được tạo với phương thức có sẵn `createAsyncThunk` của redux toolkit. Truyền vào `type` và `callback` xử lý logic
 - `Callback` có thể có nhiều param từ bên ngoài truyền vào để thực hiện logic
 
-```jsx
+```js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchTodos = createAsyncThunk(
     "todos/fetchTodos",
     async (param, thunkAPI) => {
         try {
-		        const res = await fetch("/api/todos");
-		        const data = await res.json();
-		        return data.todos;
+			const res = await fetch("/api/todos");
+			const data = await res.json();
+			return data.todos;
         }
         catch(error) {
-		        return thunkAPI.rejectWithValue(error.message);
+			return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
@@ -50,7 +50,7 @@ export const fetchTodos = createAsyncThunk(
 
 - Ngoài trạng thái `fulfilled`, còn 2 trạng thái là `pending` `rejected` . Tùy vào trường hợp mà xử lý logic
 
-```jsx
+```js
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchTodos, fetchAddTodo, fetchUpdateTodo } from "../thunks/todo-list";
 
@@ -66,8 +66,8 @@ const todoListReducerSlice = createSlice(
                 .addCase(
                     fetchTodos.fulfilled,
                     (state, action) => {
-		                    state.status = "idle"
-		                    state.todos = action.payload;
+						state.status = "idle"
+						state.todos = action.payload;
                     }
                 )
         }
@@ -85,16 +85,16 @@ import { useDispatch } from 'react-redux';
 import { fetchTodos } from '../../store/thunks/todo-list';
 
 export default function Example() {
-		const dispatch = useDispatch();
-		
-		useEffect(() => {
-				// Logic . . .
-				dispatch(
-						fetchTodos()
-				);
-		}, []);
-		
-		return <></>
+	const dispatch = useDispatch();
+	
+	useEffect(() => {
+		// Logic . . .
+		dispatch(
+			fetchTodos()
+		);
+	}, []);
+	
+	return <></>
 }
 ```
 
@@ -104,12 +104,12 @@ export default function Example() {
 
 - Chỉ cần viết một hàm bình thường và nhận vào 2 tham số `dispatch` `getState`
 
-```jsx
+```js
 export const exampleThunkSync = () => {
-		return (dispatch, getState) => {
-				// Logic . . .
-				dispatch(action);
-		}
+	return (dispatch, getState) => {
+		// Logic . . .
+		dispatch(action);
+	}
 }
 ```
 
@@ -120,13 +120,13 @@ import { useDispatch } from 'react-redux';
 import { exampleThunkSync } from ". . .";
 
 export default function Example() {
-		const dispatch = useDispatch();
-		
-		const handleClick = () => {
-				// Logic . . .
-				dispatch(exampleThunkSync());
-		}
-		
-		return <button onClick={handleClick}>Click Me</button>
+	const dispatch = useDispatch();
+	
+	const handleClick = () => {
+		// Logic . . .
+		dispatch(exampleThunkSync());
+	}
+	
+	return <button onClick={handleClick}>Click Me</button>
 }
 ```
