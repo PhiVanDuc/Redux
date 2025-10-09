@@ -40,7 +40,7 @@
 
 ### Store
 
-```jsx
+```js
 import { createStore } from "redux";
 import rootReducer from "./reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -56,7 +56,7 @@ export default store;
 
 ### Root Reducer
 
-```jsx
+```js
 import { combineReducers } from "redux";
 
 import filtersReducerSlice from "./reducer-slices/filters";
@@ -72,7 +72,7 @@ export default rootReducer;
 
 ### Slice Reducer
 
-```jsx
+```js
 const initState = [
     { id: 1, name: "Learn Yoga", completed: false, priority: "Medium" },
     { id: 2, name: "Learn Redux", completed: true, priority: "High" },
@@ -107,7 +107,7 @@ export default todoListReducerSlice;
 
 - Sử dụng hook `useSelector` lấy ra state mong muốn
 
-```
+```jsx
 import { useSelector } from 'react-redux';
 
 export default function Example() {
@@ -124,7 +124,7 @@ export default function Example() {
 
 - Sử dụng hook `useDispatch` gửi action cập nhật state
 
-```
+```jsx
 import { useDispatch } from 'react-redux';
 
 export default function Example() {
