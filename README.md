@@ -74,7 +74,7 @@ export default function Example() {
 		const handleClick = () => {
 				// Logic . . .
 				dispatch(
-						todoListReducerSlice.actions.addTodo(/* payload */)
+					todoListReducerSlice.actions.addTodo(/* payload */)
 				);
 		}
 		
