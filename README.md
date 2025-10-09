@@ -3,18 +3,16 @@
 - Cài đặt dự án `yarn install`
 - Chạy dự án `yarn start`
 
-## Cách cài đặt
+## Cài đặt thư viện
 
 - Nếu dùng Javascript thuần `npm install redux @reduxjs/toolkit`
 - Nếu dùng React.js `npm install redux @reduxjs/toolkit react-redux`
 
-## Cấu hình
+## Cách cấu hình
 
-### Reducer
+### Store
 
-- Có thể trực tiếp cấu hình reducer trong file `store.js` hoặc tách ra file khác
-
-```jsx
+```js
 import { configureStore } from "@reduxjs/toolkit";
 
 import filtersReducerSlice from "./reducer-slices/filters";
@@ -32,12 +30,9 @@ const store = configureStore(
 export default store;
 ```
 
-### Cấu hình slice reducer
+### Slice Reducer
 
-- Làm mẫu với file todo-list.js
-- Thuộc tính name kết hợp với tên phương thức như addTodo sẽ tạo ra type cho action `todoList/addTodo` `todoList/updateTodo`
-
-```
+```js
 import { createSlice } from "@reduxjs/toolkit";
 
 const todoListReducerSlice = createSlice(
@@ -65,7 +60,9 @@ const todoListReducerSlice = createSlice(
 export default todoListReducerSlice;
 ```
 
-### Cập nhật state
+## Cập nhật state
+
+- Sử dụng hook `useDispatch` gửi action cập nhật state
 
 ```jsx
 import { useDispatch } from 'react-redux';
@@ -75,11 +72,12 @@ export default function Example() {
 		const dispatch = useDispatch();
 		
 		const handleClick = () => {
+				// Logic . . .
 				dispatch(
 						todoListReducerSlice.actions.addTodo(/* payload */)
 				);
 		}
 		
-		return <button onClick={handleClick}></button>
+		return <button onClick={handleClick}>Click Me</button>
 }
 ```
